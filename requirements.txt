@@ -1,0 +1,7 @@
+Flask
+requests
+numpy
+pandas
+datetime
+pysqlite3
+scikit-learn

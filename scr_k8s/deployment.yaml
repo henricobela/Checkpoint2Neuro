@@ -1,0 +1,41 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: 'staging'
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name:  service
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 30000
+  selector:
+    role: webserver
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: webserver
+  template:
+    metadata:
+      labels:
+        role: webserver
+    spec:
+      containers:
+      - name: webserver
+        image: localhost:32000/checkpoint2neuro:v1
+        ports:
+        - containerPort: 5000
